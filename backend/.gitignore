@@ -1,4 +1,3 @@
-frontend2/*
 HELP.md
 
 
@@ -29,6 +28,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Backend ###
-/backend/target
