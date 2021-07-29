@@ -20,7 +20,6 @@ export default function TypistLoop(first, second) {
     <div className="animated-text">
       {count ? (
         <Typist
-          startDelay={1000}
           delay={1000}
           onTypingDone={() => setTimeout(() => setCount(0), 2000)}
         >

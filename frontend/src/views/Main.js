@@ -5,10 +5,13 @@ import {
   TextField,
   Button,
   Box,
+  Paper,
+  IconButton,
 } from "@material-ui/core";
 import React from "react";
 import TypistLoop from "../components/TypistLoop";
 import { makeStyles } from "@material-ui/styles";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +28,9 @@ export const Main = () => {
     console.log(url);
   };
 
+  const [responseUrl, setResponseUrl] = React.useState("");
+
+  //TODO: Url validation
   const handleSubmit = () => {
     if (url.length === 0) {
       setHelperText("Please enter a URL");
@@ -32,10 +38,32 @@ export const Main = () => {
       return;
     }
     alert(`${url} submitted!`);
+    fetch("http://localhost:8080/www.abc.com", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        setResponseUrl(result);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
   };
 
   const [helperText, setHelperText] = React.useState("");
   const [isValid, setIsValid] = React.useState(true);
+
+  const handleCopy = () => {
+    var textField = document.createElement("textarea");
+    textField.innerText = responseUrl;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.remove();
+    alert("Copied!");
+  };
 
   return (
     <div className={classes.root}>
@@ -99,6 +127,19 @@ export const Main = () => {
                 Generate
               </Button>
             </Grid>
+            {responseUrl && (
+              <Grid item>
+                <Paper style={{ padding: "0.5rem", paddingLeft: "0.6rem" }}>
+                  {/* Response{" "} */}
+                  {responseUrl + " "}
+                  {document.queryCommandSupported("copy") && (
+                    <IconButton onClick={handleCopy}>
+                      <FileCopyIcon />
+                    </IconButton>
+                  )}
+                </Paper>
+              </Grid>
+            )}
           </Grid>
         </Box>
       </Container>
