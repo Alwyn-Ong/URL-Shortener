@@ -26,7 +26,7 @@ export const Main = () => {
   };
 
   const handleSubmit = () => {
-    if (url.length == 0) {
+    if (url.length === 0) {
       setHelperText("Please enter a URL");
       setIsValid(false);
       return;
