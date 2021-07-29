@@ -1,5 +1,6 @@
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@material-ui/core";
 import { Main } from "./views/Main";
+import {Toaster} from 'react-hot-toast';
 
 let theme = createTheme();
 
@@ -18,6 +19,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Main />
+      <Toaster/>
     </ThemeProvider>
   );
 }

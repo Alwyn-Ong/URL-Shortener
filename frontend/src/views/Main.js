@@ -12,6 +12,7 @@ import React from "react";
 import TypistLoop from "../components/TypistLoop";
 import { makeStyles } from "@material-ui/styles";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
+import toast from "react-hot-toast";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,16 +36,29 @@ export const Main = () => {
     if (url.length === 0) {
       setHelperText("Please enter a URL");
       setIsValid(false);
+      toast.error("Please enter a valid URL!");
       return;
     }
-    alert(`${url} submitted!`);
-    fetch("http://localhost:8080/www.abc.com", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
-        setResponseUrl(result);
-      })
-      .catch((error) => console.log("error", error));
+    toast.promise(
+      new Promise((resolve, reject) => {
+        fetch("http://localhost:8080/www.abc.com", requestOptions)
+          .then((response) => response.text())
+          .then((result) => {
+            console.log(result);
+            setResponseUrl(result);
+            resolve(result);
+          })
+          .catch((error) => {
+            console.log("error", error);
+            reject(error);
+          });
+      }),
+      {
+        loading: "Getting url...",
+        success: "URL retrieved!",
+        error: (err) => err,
+      }
+    );
   };
 
   var requestOptions = {
@@ -62,7 +76,7 @@ export const Main = () => {
     textField.select();
     document.execCommand("copy");
     textField.remove();
-    alert("Copied!");
+    toast.success("URL copied to clipboard!");
   };
 
   return (
