@@ -1,8 +1,7 @@
-package TutorBookingWebsite.exception;
+package url.shortener.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
 
 @ResponseStatus(value = HttpStatus.BAD_GATEWAY)
 public class APIException extends RuntimeException {
