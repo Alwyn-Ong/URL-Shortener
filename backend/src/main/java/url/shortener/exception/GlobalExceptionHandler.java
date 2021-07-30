@@ -59,12 +59,14 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleGlobalException(Exception e, WebRequest request) {
 
+		ResponseDetails errorDetails = new ResponseDetails(new Date(), e.getMessage(), request.getDescription(false));
+
 		// For invalid JSON inputs
 		if (ExceptionUtils.indexOfType(e, JsonParseException.class) != -1) {
-			return new ResponseEntity("Invalid JSON input!", HttpStatus.BAD_REQUEST);
+			errorDetails.setMessage("Invalid JSON input!");
+			return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
 		}
 
-		ResponseDetails errorDetails = new ResponseDetails(new Date(), e.getMessage(), request.getDescription(false));
 		return new ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
