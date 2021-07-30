@@ -12,6 +12,7 @@ import React from "react";
 import TypistLoop from "../components/TypistLoop";
 import { makeStyles } from "@material-ui/styles";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import toast from "react-hot-toast";
 
 const useStyles = makeStyles((theme) => ({
@@ -107,6 +108,10 @@ export const Main = () => {
     toast.success("URL copied to clipboard!");
   };
 
+  const handleRedirect = () => {
+    window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
+  }
+
   return (
     <div className={classes.root}>
       <Container maxWidth="lg">
@@ -173,12 +178,17 @@ export const Main = () => {
               <Grid item>
                 <Paper style={{ padding: "0.5rem", paddingLeft: "0.6rem" }}>
                   {/* Response{" "} */}
-                  {responseUrl + " "}
+                  {/* {responseUrl + " "} */}
+                  {`http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl} `}
                   {document.queryCommandSupported("copy") && (
                     <IconButton onClick={handleCopy}>
                       <FileCopyIcon />
                     </IconButton>
                   )}
+                    <IconButton onClick={handleRedirect}>
+                      <NavigateNextIcon/>
+                    </IconButton>
+
                 </Paper>
               </Grid>
             )}
