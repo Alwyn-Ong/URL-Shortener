@@ -6,7 +6,7 @@ import "./styles.css";
 export default function TypistLoop(first, second) {
   const [count, setCount] = useState(1);
 
-  console.log(count);
+  // console.log(count);
   useEffect(() => {
     setCount(1);
     // setCount(1);
@@ -14,7 +14,7 @@ export default function TypistLoop(first, second) {
 
   let original = "https://developer.gov.sg/";
   let shortened = `http://${process.env.REACT_APP_SERVER_NAME}/a1b2c3d4`
-  console.log(process.env.REACT_APP_SERVER_NAME);
+  // console.log(process.env.REACT_APP_SERVER_NAME);
 
   return (
     <div className="animated-text">

@@ -39,18 +39,49 @@ export const Main = () => {
       toast.error("Please enter a valid URL!");
       return;
     }
+    setHelperText("");
+    setIsValid(true);
     toast.promise(
       new Promise((resolve, reject) => {
-        fetch("http://localhost:8080/www.abc.com", requestOptions)
-          .then((response) => response.text())
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          original: url,
+        });
+
+        console.log(url);
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch("http://localhost:8080/", requestOptions)
+          .then((response) => {
+            if (response.ok) {
+              return response.text();
+            }
+            
+            let errorMessage = "Error!";
+            if (response.status.toString()[0] == 4) {
+              errorMessage = "Invalid URL!"
+            }
+            if (response.status.toString()[0] == 5) {
+              errorMessage = "Error retrieving from server!";
+            }
+            throw new Error(errorMessage);
+          })
           .then((result) => {
             console.log(result);
             setResponseUrl(result);
             resolve(result);
           })
           .catch((error) => {
-            console.log("error", error);
-            reject(error);
+            console.log(error.message);
+            reject(error.message);
           });
       }),
       {
@@ -61,10 +92,7 @@ export const Main = () => {
     );
   };
 
-  var requestOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
+  console.log(responseUrl);
 
   const [helperText, setHelperText] = React.useState("");
   const [isValid, setIsValid] = React.useState(true);
