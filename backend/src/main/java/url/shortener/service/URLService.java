@@ -27,13 +27,13 @@ public class URLService {
 			if (URLDao.findByShortened(shortened) != null) {
 				throw new APIException("Duplicate URL!");
 			}
+		} else {
 
 			// Generate shortened url
 			String generatedShortened = Helper.generateShortened(url.getOriginal());
 			url.setShortened(generatedShortened);
 		}
 
-		System.out.println(url);
 		// Add to db
 		URLDao.save(url);
 
