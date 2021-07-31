@@ -7,12 +7,14 @@ import {
   Box,
   Paper,
   IconButton,
+  FormControlLabel,
+  Checkbox,
 } from "@material-ui/core";
 import React from "react";
 import TypistLoop from "../components/TypistLoop";
 import { makeStyles } from "@material-ui/styles";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import toast from "react-hot-toast";
 
 const useStyles = makeStyles((theme) => ({
@@ -65,10 +67,10 @@ export const Main = () => {
             if (response.ok) {
               return response.text();
             }
-            
+
             let errorMessage = "Error!";
             if (response.status.toString()[0] == 4) {
-              errorMessage = "Invalid URL!"
+              errorMessage = "Invalid URL!";
             }
             if (response.status.toString()[0] == 5) {
               errorMessage = "Error retrieving from server!";
@@ -110,7 +112,20 @@ export const Main = () => {
 
   const handleRedirect = () => {
     window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
-  }
+  };
+
+  // For custom input
+  const [isCustomUrl, setIsCustomUrl] = React.useState(false);
+  const handleIsCustomUrlChange = (e) => {
+    setIsCustomUrl(e.target.checked);
+  };
+
+  const [customUrl, setCustomUrl] = React.useState("");
+  const handleCustomUrlChange = (e) => {
+    setCustomUrl(e.target.value);
+  };
+
+  let customUrlToDisplay = customUrl == "" ? "<custom ending>" : customUrl;
 
   return (
     <div className={classes.root}>
@@ -168,7 +183,36 @@ export const Main = () => {
                 error={!isValid}
                 variant="outlined"
               />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isCustomUrl}
+                    onChange={handleIsCustomUrlChange}
+                    color="primary"
+                  />
+                }
+                label="I want a specific shortened url ending."
+              ></FormControlLabel>
             </Grid>
+            {isCustomUrl && <Grid item style={{ width: "50%" }}>
+              <Typography variant="h7">
+                Your new url would be:
+                <br />
+                {`http://${process.env.REACT_APP_SERVER_NAME}/${customUrlToDisplay}`}
+              </Typography>
+              <TextField
+                id="standard-full-width"
+                label="URL"
+                style={{ margin: 8, marginTop: 10 }}
+                placeholder="www."
+                // helperText={!isValid && helperText}
+                fullWidth
+                value={customUrl}
+                onChange={handleCustomUrlChange}
+                // error={!isValid}
+                variant="outlined"
+              />
+            </Grid>}
             <Grid item>
               <Button variant="contained" onClick={handleSubmit}>
                 Generate
@@ -185,10 +229,9 @@ export const Main = () => {
                       <FileCopyIcon />
                     </IconButton>
                   )}
-                    <IconButton onClick={handleRedirect}>
-                      <NavigateNextIcon/>
-                    </IconButton>
-
+                  <IconButton onClick={handleRedirect}>
+                    <NavigateNextIcon />
+                  </IconButton>
                 </Paper>
               </Grid>
             )}
