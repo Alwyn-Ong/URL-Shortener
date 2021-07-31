@@ -15,6 +15,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import TypistLoop from "../components/TypistLoop";
 import Main from "../layouts/Main";
+import validator from "validator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +37,7 @@ const Home = () => {
   //TODO: Url validation
   const handleSubmit = () => {
     // Validation for url
-    if (url.length === 0) {
+    if (url.length === 0 || !validator.isURL(url)) {
       setHelperText("Please enter a URL");
       setIsValid(false);
       toast.error("Please enter a valid URL!");
@@ -55,6 +56,14 @@ const Home = () => {
       setCustomUrlHelperText("Custom URL should be 8 or less characters.");
       setIsCustomUrlValid(false);
       toast.error("Custom URL too long!");
+      return;
+    }
+
+    if (!customUrl.match(/^[0-9a-zA-Z]+$/)){
+      console.log(customUrl + " is invalid apparently")
+      setCustomUrlHelperText("Custom URL should only contain numbers or letters.");
+      setIsCustomUrlValid(false);
+      toast.error("Custom URL is invalid!");
       return;
     }
 
@@ -199,8 +208,9 @@ const Home = () => {
             // }
             label="URL"
             style={{ margin: 8, height: "50%" }}
-            placeholder="www."
-            helperText={!isValid && helperText}
+            placeholder="http://"
+            // helperText={!isValid && helperText}
+            helperText="e.g. http://www.google.com"
             fullWidth
             // margin="normal"
             // InputLabelProps={{
