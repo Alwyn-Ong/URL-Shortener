@@ -52,6 +52,13 @@ export const Main = () => {
       return;
     }
 
+    if (customUrl.length > 8){
+      setCustomUrlHelperText("Custom URL should be 8 or less characters.");
+      setIsCustomUrlValid(false);
+      toast.error("Custom URL too long!");
+      return;
+    }
+
     // Reset field validations
     setHelperText("");
     setIsValid(true);
@@ -140,7 +147,18 @@ export const Main = () => {
     setCustomUrl(e.target.value);
   };
 
-  let customUrlToDisplay = customUrl == "" ? "custom" : customUrl;
+  const customUrlToDisplay = () => {
+    if (customUrl.length == 0){
+      return ""
+    }
+
+    if (customUrl.length < 6){
+      return customUrl;
+    }
+
+    return customUrl.slice(0,6) + "..."
+    // customUrl == "" ? "custom" : customUrl;
+  }
 
   const [isCustomUrlValid, setIsCustomUrlValid] = React.useState(true);
   const [customUrlHelperText, setCustomUrlHelperText] = React.useState("");
@@ -216,7 +234,7 @@ export const Main = () => {
             {isCustomUrl && (
               <Grid item style={{ width: "50%" }}>
                 <Typography variant="h6" align="center">
-                  {`http://${process.env.REACT_APP_SERVER_NAME}/${customUrlToDisplay}`}
+                  {`http://${process.env.REACT_APP_SERVER_NAME}/${customUrlToDisplay()}`}
                 </Typography>
 
                 <TextField
