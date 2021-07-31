@@ -1,9 +1,5 @@
 package url.shortener.controller;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,18 +33,18 @@ public class URLController {
 	}
 
 	// To get the shortened map based on original
-//	@GetMapping("/{shortened}")
-//	public ResponseEntity getUrl(@PathVariable("shortened") String shortened) {
-//		return service.getUrl(shortened);
-//	}
+	@GetMapping("/{shortened}")
+	public ResponseEntity getUrl(@PathVariable("shortened") String shortened) {
+		return service.getUrl(shortened);
+	}
 
 //	@GetMapping("/{shortened}")
 //	public ModelAndView getUrl(@PathVariable("shortened") String shortened) {
 //		return service.getUrl(shortened);
 //	}
 
-	@GetMapping("/{shortened}")
-	public void getUrl(HttpServletResponse response, @PathVariable("shortened") String shortened) throws IOException {
-		response.sendRedirect(service.getUrl(shortened));
-	}
+//	@GetMapping("/{shortened}")
+//	public void getUrl(HttpServletResponse response, @PathVariable("shortened") String shortened) throws IOException {
+//		response.sendRedirect(service.getUrl(shortened));
+//	}
 }

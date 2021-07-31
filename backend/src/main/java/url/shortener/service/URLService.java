@@ -42,7 +42,7 @@ public class URLService {
 	}
 
 	// TODO: Add validation
-	public String getUrl(String shortened) {
+	public ResponseEntity getUrl(String shortened) {
 
 		// Validate incoming shortened url
 		Helper.validateShortenedUrl(shortened);
@@ -60,7 +60,8 @@ public class URLService {
 			throw new APIException("Error retrieving original URL.");
 		}
 
-		return result.getOriginal();
+//		return result.getOriginal();
+		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
 
 //		return new ModelAndView("redirect:" + result.getOriginal());/
 
