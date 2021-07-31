@@ -1,6 +1,7 @@
 package url.shortener.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class URLService {
 	@Autowired
 	private URLDao URLDao;
 
+	@Value("${url.shortened.generated.length}")
+	private int generatedShortenedLength;
+
 	public ResponseEntity createUrl(URL url) {
 
 		Helper.validateUrlRequest(url);
@@ -27,15 +31,26 @@ public class URLService {
 			if (URLDao.findByShortened(shortened) != null) {
 				throw new APIException("Duplicate URL!");
 			}
+		}
+
+		// Check if record already exists
+		URL urlFromDB = URLDao.findByOriginal(url.getOriginal());
+
+		if (urlFromDB != null) {
+
+			// Return existing shortened url from db
+			url = urlFromDB;
+
 		} else {
 
 			// Generate shortened url
-			String generatedShortened = Helper.generateShortened(url.getOriginal());
+			String generatedShortened = Helper.generateShortened(url.getOriginal(), generatedShortenedLength);
 			url.setShortened(generatedShortened);
-		}
 
-		// Add to db
-		URLDao.save(url);
+			// Add to db
+			URLDao.save(url);
+
+		}
 
 		// Returns new shortened url to user
 		return new ResponseEntity(url.getShortened(), HttpStatus.OK);
