@@ -36,14 +36,28 @@ export const Main = () => {
 
   //TODO: Url validation
   const handleSubmit = () => {
+    // Validation for url
     if (url.length === 0) {
       setHelperText("Please enter a URL");
       setIsValid(false);
       toast.error("Please enter a valid URL!");
       return;
     }
+
+    // Validation for custom url
+    if (isCustomUrl && customUrl.length == 0) {
+      setCustomUrlHelperText("Please enter a custom URL ending");
+      setIsCustomUrlValid(false);
+      toast.error("Please enter a custom URL ending!");
+      return;
+    }
+
+    // Reset field validations
     setHelperText("");
     setIsValid(true);
+    setCustomUrlHelperText("");
+    setIsCustomUrlValid(true);
+
     toast.promise(
       new Promise((resolve, reject) => {
         var myHeaders = new Headers();
@@ -51,6 +65,7 @@ export const Main = () => {
 
         var raw = JSON.stringify({
           original: url,
+          shortened: isCustomUrl && customUrl ? customUrl : null
         });
 
         console.log(url);
@@ -126,6 +141,9 @@ export const Main = () => {
   };
 
   let customUrlToDisplay = customUrl == "" ? "custom" : customUrl;
+
+  const [isCustomUrlValid, setIsCustomUrlValid] = React.useState(true);
+  const [customUrlHelperText, setCustomUrlHelperText] = React.useState("");
 
   return (
     <div className={classes.root}>
@@ -206,11 +224,11 @@ export const Main = () => {
                   label="Custom"
                   style={{ margin: 8, marginTop: 10 }}
                   placeholder="custom"
-                  // helperText={!isValid && helperText}
+                  helperText={!isCustomUrlValid && customUrlHelperText}
                   fullWidth
                   value={customUrl}
                   onChange={handleCustomUrlChange}
-                  // error={!isValid}
+                  error={!isCustomUrlValid}
                   variant="outlined"
                 />
               </Grid>
