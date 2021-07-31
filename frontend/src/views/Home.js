@@ -45,26 +45,30 @@ const Home = () => {
     }
 
     // Validation for custom url
-    if (isCustomUrl && customUrl.length == 0) {
-      setCustomUrlHelperText("Please enter a custom URL ending");
-      setIsCustomUrlValid(false);
-      toast.error("Please enter a custom URL ending!");
-      return;
-    }
+    if (isCustomUrl) {
+      if (customUrl.length == 0) {
+        setCustomUrlHelperText("Please enter a custom URL ending");
+        setIsCustomUrlValid(false);
+        toast.error("Please enter a custom URL ending!");
+        return;
+      }
 
-    if (customUrl.length > 8) {
-      setCustomUrlHelperText("Custom URL should be 8 or less characters.");
-      setIsCustomUrlValid(false);
-      toast.error("Custom URL too long!");
-      return;
-    }
+      if (customUrl.length > 8) {
+        setCustomUrlHelperText("Custom URL should be 8 or less characters.");
+        setIsCustomUrlValid(false);
+        toast.error("Custom URL too long!");
+        return;
+      }
 
-    if (!customUrl.match(/^[0-9a-zA-Z]+$/)){
-      console.log(customUrl + " is invalid apparently")
-      setCustomUrlHelperText("Custom URL should only contain numbers or letters.");
-      setIsCustomUrlValid(false);
-      toast.error("Custom URL is invalid!");
-      return;
+      if (!customUrl.match(/^[0-9a-zA-Z]+$/)) {
+        console.log(customUrl + " is invalid apparently");
+        setCustomUrlHelperText(
+          "Custom URL should only contain numbers or letters."
+        );
+        setIsCustomUrlValid(false);
+        toast.error("Custom URL is invalid!");
+        return;
+      }
     }
 
     // Reset field validations
