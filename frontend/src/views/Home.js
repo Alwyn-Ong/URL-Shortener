@@ -1,5 +1,12 @@
 import {
-  Button, Checkbox, FormControlLabel, Grid, IconButton, Paper, TextField, Typography
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  IconButton,
+  Paper,
+  TextField,
+  Typography,
 } from "@material-ui/core";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
@@ -116,7 +123,7 @@ const Home = () => {
 
   const handleCopy = () => {
     var textField = document.createElement("textarea");
-    textField.innerText = responseUrl;
+    textField.innerText = `http://${process.env.REACT_APP_SERVER_NAME}:3000/${responseUrl}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -125,7 +132,7 @@ const Home = () => {
   };
 
   const handleRedirect = () => {
-    window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
+    window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}:3000/${responseUrl}`;
   };
 
   // For custom input
