@@ -1,5 +1,7 @@
 package url.shortener.service;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -8,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import url.shortener.dao.URLDao;
 import url.shortener.exception.APIException;
-import url.shortener.helper.Helper;
+import url.shortener.helper.Generator;
+import url.shortener.helper.Validator;
 import url.shortener.model.URL;
 
 @Service
@@ -22,15 +25,16 @@ public class URLService {
 
 	public ResponseEntity createUrl(URL url) {
 
-		Helper.validateUrlRequest(url);
+		Validator.validateUrlRequest(url);
+
+		System.out.println("Received URL:");
+		System.out.println(url);
 
 		String shortened = url.getShortened();
-		if (shortened != null) {
 
-			// If specified short url has already been registered
-			if (URLDao.findByShortened(shortened) != null) {
-				throw new APIException("Duplicate URL!");
-			}
+		// If specified short url has already been registered
+		if (shortened != null && URLDao.findByShortened(shortened) != null) {
+			throw new APIException("Duplicate URL!");
 		}
 
 		// Check if record already exists
@@ -43,9 +47,13 @@ public class URLService {
 
 		} else {
 
-			// Generate shortened url
-			String generatedShortened = Helper.generateShortened(url.getOriginal(), generatedShortenedLength);
-			url.setShortened(generatedShortened);
+			System.out.println("Generating new shortened string");
+
+			if (shortened == null) {
+				// Generate shortened url
+				String generatedShortened = Generator.generateShortened(url.getOriginal(), generatedShortenedLength);
+				url.setShortened(generatedShortened);
+			}
 
 			// Add to db
 			URLDao.save(url);
@@ -60,7 +68,7 @@ public class URLService {
 	public ResponseEntity getUrl(String shortened) {
 
 		// Validate incoming shortened url
-		Helper.validateShortenedUrl(shortened);
+		Validator.validateShortenedUrl(shortened);
 
 		System.out.println("shortened: " + shortened);
 
@@ -87,6 +95,23 @@ public class URLService {
 		// Returns original url to user
 //		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
 //		return new ResponseEntity(headers, HttpStatus.FOUND);
+	}
+
+	private String generateShortened(String original, int length) {
+
+		String ALPHANUMERIC = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		int ALPHANUMERIC_LENGTH = ALPHANUMERIC.length();
+
+		int num = 0;
+		Random random = new Random(original.length());
+		StringBuilder result = new StringBuilder("");
+
+		for (int i = 0; i < length; i++) {
+			int temp = random.nextInt(ALPHANUMERIC_LENGTH);
+			result.append(ALPHANUMERIC.charAt(temp));
+		}
+
+		return result.toString();
 	}
 
 }
