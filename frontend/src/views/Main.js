@@ -125,7 +125,7 @@ export const Main = () => {
     setCustomUrl(e.target.value);
   };
 
-  let customUrlToDisplay = customUrl == "" ? "<custom ending>" : customUrl;
+  let customUrlToDisplay = customUrl == "" ? "custom" : customUrl;
 
   return (
     <div className={classes.root}>
@@ -191,28 +191,30 @@ export const Main = () => {
                     color="primary"
                   />
                 }
-                label="I want a specific shortened url ending."
+                label="Custom URL ending"
+                fullWidth
               ></FormControlLabel>
             </Grid>
-            {isCustomUrl && <Grid item style={{ width: "50%" }}>
-              <Typography variant="h7">
-                Your new url would be:
-                <br />
-                {`http://${process.env.REACT_APP_SERVER_NAME}/${customUrlToDisplay}`}
-              </Typography>
-              <TextField
-                id="standard-full-width"
-                label="URL"
-                style={{ margin: 8, marginTop: 10 }}
-                placeholder="www."
-                // helperText={!isValid && helperText}
-                fullWidth
-                value={customUrl}
-                onChange={handleCustomUrlChange}
-                // error={!isValid}
-                variant="outlined"
-              />
-            </Grid>}
+            {isCustomUrl && (
+              <Grid item style={{ width: "50%" }}>
+                <Typography variant="h6" align="center">
+                  {`http://${process.env.REACT_APP_SERVER_NAME}/${customUrlToDisplay}`}
+                </Typography>
+
+                <TextField
+                  id="customUrl"
+                  label="Custom"
+                  style={{ margin: 8, marginTop: 10 }}
+                  placeholder="custom"
+                  // helperText={!isValid && helperText}
+                  fullWidth
+                  value={customUrl}
+                  onChange={handleCustomUrlChange}
+                  // error={!isValid}
+                  variant="outlined"
+                />
+              </Grid>
+            )}
             <Grid item>
               <Button variant="contained" onClick={handleSubmit}>
                 Generate
