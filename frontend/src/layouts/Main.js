@@ -3,6 +3,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +26,7 @@ const Main = ({ children }) => {
           {children}
         </Box>
       </Container>
+      <Outlet />
     </div>
   );
 };

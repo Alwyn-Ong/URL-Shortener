@@ -1,11 +1,39 @@
-import React from 'react'
+import React from "react";
+import Error from "./Error";
+import { useParams } from "react-router";
 
 const Redirect = () => {
-    return (
-        <div>
-            
-        </div>
-    )
-}
+  let url = useParams().url;
 
-export default Redirect
+  console.log(url);
+
+  const [isError, setIsError] = React.useState(false);
+
+  // Query backend
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+    mode: "cors",
+  };
+
+  fetch(`http://localhost:8080/${url}`, requestOptions)
+    .then((response) => {
+      if (response.ok) {
+        return response.text();
+      }
+
+      throw new Error("Invalid URL!");
+    })
+    .then((result) => {
+      console.log(result);
+      window.location.href = result;
+    })
+    .catch((error) => {
+      console.log("error", error);
+      setIsError(true);
+    });
+
+  return <div>{isError && <Error />}</div>;
+};
+
+export default Redirect;

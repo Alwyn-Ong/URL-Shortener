@@ -213,7 +213,6 @@ const Home = () => {
               />
             }
             label="Custom URL ending"
-            fullWidth
           ></FormControlLabel>
         </Grid>
         {isCustomUrl && (

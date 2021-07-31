@@ -1,5 +1,6 @@
 import { Button, Divider, Grid, Typography } from "@material-ui/core";
 import React from "react";
+import { NavLink } from "react-router-dom";
 import Main from "../layouts/Main";
 
 const Error = () => {
@@ -41,7 +42,7 @@ const Error = () => {
           </Typography>
         </Grid>
         <Grid>
-          <Button variant="contained">Home</Button>
+          <Button to={"/"} component={NavLink} variant="contained">Home</Button>
         </Grid>
       </Grid>
     </Main>
