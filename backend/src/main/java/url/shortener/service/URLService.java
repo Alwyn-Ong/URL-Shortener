@@ -42,16 +42,35 @@ public class URLService {
 	}
 
 	// TODO: Add validation
-	public ResponseEntity getUrl(String shortened) {
+	public String getUrl(String shortened) {
 
 		// Validate incoming shortened url
 		Helper.validateShortenedUrl(shortened);
 
+		System.out.println("shortened: " + shortened);
+
 		// Retrieve from database
 		URL result = URLDao.findByShortened(shortened);
 
+		System.out.println("Result is: -------------");
+		System.out.println(result);
+		System.out.println("------------");
+
+		if (result.getOriginal() == null || result.getOriginal().length() == 0) {
+			throw new APIException("Error retrieving original URL.");
+		}
+
+		return result.getOriginal();
+
+//		return new ModelAndView("redirect:" + result.getOriginal());/
+
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("location", result.getOriginal());
+//		headers.setLocation(URI.create(result.getOriginal()));
+
 		// Returns original url to user
-		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
+//		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
+//		return new ResponseEntity(headers, HttpStatus.FOUND);
 	}
 
 }
