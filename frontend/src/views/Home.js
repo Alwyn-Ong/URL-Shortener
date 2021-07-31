@@ -160,7 +160,7 @@ const Home = () => {
       return "";
     }
 
-    if (customUrl.length < 6) {
+    if (customUrl.length <= 6) {
       return customUrl;
     }
 
