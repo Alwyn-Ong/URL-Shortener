@@ -31,11 +31,14 @@ npm to compile and run frontend server
 ```shell script
 cd frontend 
 ```
+To change to frontend directory
+
 
 ```shell script
 npm install 
 ```
 Downloads and installed required packages
+
 
 ```shell script
 npm start 
@@ -58,14 +61,22 @@ Change your database credentials accordingly in application.properties file.
 `/backend/src/main/resources/application.properties`
 
 ```shell script
+cd frontend 
+```
+To change to frontend directory
+
+
+```shell script
 mvn clean install
 ```
 Compiles the backend server.
+
 
 ```shell script
 mvn spring-boot:run
 ```
 Starts the spring boot application
+
 
 ### Docker
 You also choose to deploy the application locally via docker!
@@ -77,10 +88,12 @@ docker-compose up
 ```
 Runs frontend, backend and MySQL servers.
 
+
 ```shell script
 docker-compose down
 ```
 Stops the application.
+
 
 Issues to note
 * The MySQL server is spun up automatically by Spring Boot, so there is no need for a database schema.
