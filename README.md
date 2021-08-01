@@ -63,17 +63,17 @@ Change your database credentials accordingly in application.properties file.
 ```shell script
 cd frontend 
 ```
-To change to frontend directory__
+To change to frontend directory<br>
 
 ```shell script
 mvn clean install
 ```
-Compiles the backend server__
+Compiles the backend server<br>
 
 ```shell script
 mvn spring-boot:run
 ```
-Starts the spring boot application__
+Starts the spring boot application<br>
 
 ### Docker
 You also choose to deploy the application locally via docker!
@@ -83,12 +83,12 @@ Before you deploy, compile the backend server as shown above using `mvn clean in
 ```shell script
 docker-compose up
 ```
-Runs frontend, backend and MySQL servers.__
+Runs frontend, backend and MySQL servers.<br>
 
 ```shell script
 docker-compose down
 ```
-Stops the application.__
+Stops the application.<br>
 
 Issues to note
 * The MySQL server is spun up automatically by Spring Boot, so there is no need for a database schema.
