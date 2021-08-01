@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Layout to be used by all pages
 const Main = ({ children }) => {
   const classes = useStyles();
 

@@ -5,8 +5,6 @@ import { useParams } from "react-router";
 const Redirect = () => {
   let url = useParams().url;
 
-  console.log(url);
-
   const [isError, setIsError] = React.useState(false);
 
   // Query backend
@@ -16,6 +14,7 @@ const Redirect = () => {
     mode: "cors",
   };
 
+  // Redirect or go to error page if invalid url
   fetch(`${window.location.protocol + "//" + window.location.hostname + ":8080"}/${url}`, requestOptions)
     .then((response) => {
       if (response.ok) {

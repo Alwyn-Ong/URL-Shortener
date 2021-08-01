@@ -5,7 +5,6 @@ import Redirect from "./views/Redirect";
 const routes = [
   {
     path: "/",
-    // element: <Main />,
     children: [
       { path: "/", element: <Home /> },
       { path: ":url", element: <Redirect /> },

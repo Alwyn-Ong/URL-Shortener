@@ -31,12 +31,10 @@ const Home = () => {
   const [url, setUrl] = React.useState("");
   const handleChange = (event) => {
     setUrl(event.target.value);
-    // console.log(url);
   };
 
   const [responseUrl, setResponseUrl] = React.useState("");
 
-  //TODO: Url validation
   const handleSubmit = () => {
     // Validation for url
     if (url.length === 0 || !validator.isURL(url)) {
@@ -81,6 +79,8 @@ const Home = () => {
 
     toast.promise(
       new Promise((resolve, reject) => {
+
+        // Query from backend
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -131,11 +131,10 @@ const Home = () => {
     );
   };
 
-  // console.log(responseUrl);
-
   const [helperText, setHelperText] = React.useState("");
   const [isValid, setIsValid] = React.useState(true);
 
+  // For copyiug to clipboard
   const handleCopy = () => {
     var textField = document.createElement("textarea");
     textField.innerText = `${protocolAndHost}:${window.location.port}/${responseUrl}`;
@@ -171,7 +170,6 @@ const Home = () => {
     }
 
     return customUrl.slice(0, 6) + "...";
-    // customUrl == "" ? "custom" : customUrl;
   };
 
   const [isCustomUrlValid, setIsCustomUrlValid] = React.useState(true);
@@ -199,7 +197,6 @@ const Home = () => {
           <Typography variant="h2" align="center">
             Less is more.
           </Typography>
-          {/* <Typography variant="h3" align="center">Enter your URL to get started:</Typography> */}
         </Grid>
         <Grid item style={{ width: "50%" }}>
           <Typography variant="h5" align="center">
@@ -207,21 +204,11 @@ const Home = () => {
           </Typography>
           <TextField
             id="standard-full-width"
-            // label={
-            //   <Typography variant="h7">
-            //     Enter your URL to get Started:
-            //   </Typography>
-            // }
             label="URL"
             style={{ margin: 8, height: "50%" }}
             placeholder="http://"
-            // helperText={!isValid && helperText}
             helperText="e.g. http://www.google.com"
             fullWidth
-            // margin="normal"
-            // InputLabelProps={{
-            //   shrink: true,
-            // }}
             value={url}
             onChange={handleChange}
             error={!isValid}
@@ -266,8 +253,6 @@ const Home = () => {
         {responseUrl && (
           <Grid item>
             <Paper style={{ padding: "0.5rem", paddingLeft: "0.6rem" }}>
-              {/* Response{" "} */}
-              {/* {responseUrl + " "} */}
               {`${protocolAndHost + ":" + window.location.port}/${responseUrl} `}
               {document.queryCommandSupported("copy") && (
                 <IconButton onClick={handleCopy}>

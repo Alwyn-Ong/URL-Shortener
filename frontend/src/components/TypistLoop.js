@@ -6,15 +6,13 @@ import "./styles.css";
 export default function TypistLoop(first, second) {
   const [count, setCount] = useState(1);
 
-  // console.log(count);
+  // To reset component
   useEffect(() => {
     setCount(1);
-    // setCount(1);
   }, [count]);
 
   let original = "https://developer.gov.sg/";
   let shortened = `${window.location.protocol + "//" + window.location.hostname}/a1b2c3d4`
-
 
   return (
     <div className="animated-text">
@@ -28,6 +26,7 @@ export default function TypistLoop(first, second) {
           <span>{shortened}</span>
         </Typist>
       ) : (
+        // To act as a placeholder empty line
         <span>
           <br />
         </span>
