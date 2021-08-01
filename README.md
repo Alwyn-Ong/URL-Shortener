@@ -10,6 +10,7 @@ Check out a live demo [here!](http://13.250.25.22:3000/)
 ### Additional Features:
 * Persistence - Queries are persisted with a relational database
 * Styling - Frontend facing website with animations 
+* Tested and ready - Testing for Spring Boot
 * Mobile ready - Content scales down with screen size
 * Production ready - Web application is being hosted [here.](http://13.250.25.22:3000/)
 * Docker ready - Web application is dockerised and ready to deploy on the go
@@ -65,8 +66,10 @@ For localhost, change
 to
 `-spring.datasource.url=jdbc:mysql://localhost...`
 
+Make sure your MySQL server is up and running before compiling as database connection is required for testing.
+
 ```shell script
-cd frontend 
+cd backend 
 ```
 To change to frontend directory<br><br>
 
@@ -84,6 +87,7 @@ Starts the spring boot application<br><br>
 You also choose to deploy the application locally via docker!
 
 Before you deploy, compile the backend server as shown above using `mvn clean install`.
+If you want to compile the backend server without having to run MySQL separately, use `mvn clean install -DskipTests` instead.
 
 ```shell script
 docker-compose up
