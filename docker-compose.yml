@@ -1,6 +1,6 @@
 # Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
 
-version: '3.7'
+version: '3.3'
 
 # Define services
 services:
@@ -45,9 +45,10 @@ services:
       - "3306:3306"
     restart: always
     environment:
-      - MYSQL_DATABASE=urlshortener
-      - MYSQL_ROOT_PASSWORD= password
-      - MYSQL_ROOT_HOST='%'
+      MYSQL_DATABASE: urlshortener
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: '%'
+
     volumes:
       - db-data:/var/lib/mysql
     networks:
