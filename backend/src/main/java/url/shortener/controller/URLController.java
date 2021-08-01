@@ -22,11 +22,7 @@ public class URLController {
 	@Autowired
 	private URLService service;
 
-	// TODO: Change to POST
-//	@GetMapping("/create/{shortened}/{original}")
-//	public String createUrl(@PathVariable("shortened") String shortened, @PathVariable("original") String original){
-//		return service.createUrl(shortened, original);
-//	}
+	// To add url to database and create shortened if not specified
 	@PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity createUrl(@RequestBody URL url) {
 		return service.createUrl(url);
@@ -38,13 +34,4 @@ public class URLController {
 		return service.getUrl(shortened);
 	}
 
-//	@GetMapping("/{shortened}")
-//	public ModelAndView getUrl(@PathVariable("shortened") String shortened) {
-//		return service.getUrl(shortened);
-//	}
-
-//	@GetMapping("/{shortened}")
-//	public void getUrl(HttpServletResponse response, @PathVariable("shortened") String shortened) throws IOException {
-//		response.sendRedirect(service.getUrl(shortened));
-//	}
 }

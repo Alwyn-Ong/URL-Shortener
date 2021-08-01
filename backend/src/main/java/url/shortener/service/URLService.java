@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import url.shortener.dao.URLDao;
 import url.shortener.exception.APIException;
-import url.shortener.helper.Generator;
 import url.shortener.helper.Validator;
 import url.shortener.model.URL;
 
@@ -22,6 +21,8 @@ public class URLService {
 
 	@Value("${url.shortened.generated.length}")
 	private int generatedShortenedLength;
+
+	private Random random = new Random();
 
 	public ResponseEntity createUrl(URL url) {
 
@@ -51,7 +52,7 @@ public class URLService {
 
 			if (shortened == null) {
 				// Generate shortened url
-				String generatedShortened = Generator.generateShortened(url.getOriginal(), generatedShortenedLength);
+				String generatedShortened = this.generateShortened(url.getOriginal(), generatedShortenedLength);
 				url.setShortened(generatedShortened);
 			}
 
@@ -83,18 +84,7 @@ public class URLService {
 			throw new APIException("Error retrieving original URL.");
 		}
 
-//		return result.getOriginal();
 		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
-
-//		return new ModelAndView("redirect:" + result.getOriginal());/
-
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.add("location", result.getOriginal());
-//		headers.setLocation(URI.create(result.getOriginal()));
-
-		// Returns original url to user
-//		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
-//		return new ResponseEntity(headers, HttpStatus.FOUND);
 	}
 
 	private String generateShortened(String original, int length) {
@@ -103,7 +93,6 @@ public class URLService {
 		int ALPHANUMERIC_LENGTH = ALPHANUMERIC.length();
 
 		int num = 0;
-		Random random = new Random(original.length());
 		StringBuilder result = new StringBuilder("");
 
 		for (int i = 0; i < length; i++) {

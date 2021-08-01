@@ -7,6 +7,7 @@ import url.shortener.model.URL;
 
 public class Validator {
 
+	// To validate original url
 	public static void validateUrlRequest(URL url) {
 
 		// Checks if URL is present
@@ -23,6 +24,7 @@ public class Validator {
 		return;
 	}
 
+	// To validate shortened url
 	public static void validateShortenedUrl(String url) {
 
 		if (!url.matches("[0-9a-zA-Z]+")) {

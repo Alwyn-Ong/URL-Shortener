@@ -3,6 +3,7 @@ package url.shortener.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+// For invalid requests
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class ParameterException extends RuntimeException {
 
