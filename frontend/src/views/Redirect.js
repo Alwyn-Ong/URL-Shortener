@@ -16,7 +16,7 @@ const Redirect = () => {
     mode: "cors",
   };
 
-  fetch(`http://localhost:8080/${url}`, requestOptions)
+  fetch(`${window.location.protocol + "//" + window.location.hostname + ":8080"}/${url}`, requestOptions)
     .then((response) => {
       if (response.ok) {
         return response.text();
