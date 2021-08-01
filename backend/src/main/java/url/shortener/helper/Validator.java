@@ -24,6 +24,15 @@ public class Validator {
 	}
 
 	public static void validateShortenedUrl(String url) {
+
+		if (!url.matches("[0-9a-zA-Z]+")) {
+			throw new ParameterException("Invalid shortened URL!");
+		}
+
+		if (url.length() > 8) {
+			throw new ParameterException("URL is too long!");
+		}
+
 		return;
 	}
 
