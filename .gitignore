@@ -31,4 +31,4 @@ build/
 .vscode/
 
 ### Backend ###
-/backend/target
+# /backend/target
