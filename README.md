@@ -63,20 +63,17 @@ Change your database credentials accordingly in application.properties file.
 ```shell script
 cd frontend 
 ```
-To change to frontend directory
-
+To change to frontend directory\
 
 ```shell script
 mvn clean install
 ```
-Compiles the backend server.
-
+Compiles the backend server\
 
 ```shell script
 mvn spring-boot:run
 ```
-Starts the spring boot application
-
+Starts the spring boot application\
 
 ### Docker
 You also choose to deploy the application locally via docker!
@@ -86,21 +83,19 @@ Before you deploy, compile the backend server as shown above using `mvn clean in
 ```shell script
 docker-compose up
 ```
-Runs frontend, backend and MySQL servers.
-
+Runs frontend, backend and MySQL servers.\
 
 ```shell script
 docker-compose down
 ```
-Stops the application.
-
+Stops the application.\
 
 Issues to note
 * The MySQL server is spun up automatically by Spring Boot, so there is no need for a database schema.
 * If the backend fails to run, a common problem would be due to it being unable to connect to the database. Check your credentials as shown above.
 * The application only stores one shortened url for every original url. Generating the same original url twice will return the same result.
 
-Future Enhancements / 
+Future Enhancements
 * Ci/Cd pipeline could be built for better deployment
 * Getting a hostname to make the shortened url shorter
 * Caching database queries to improve performance
