@@ -8,8 +8,9 @@ Check out a live demo [here!](http://13.250.25.22:3000/)
 * Go to the shortened version to be redirected to your url!
 
 ### Additional Features:
-* Styling - Frontend facing website with animations 
 * Persistence - Queries are persisted with a relational database
+* Styling - Frontend facing website with animations 
+* Mobile ready - Content scales down with screen size
 * Production ready - Web application is being hosted [here.](http://13.250.25.22:3000/)
 * Docker ready - Web application is dockerised and ready to deploy on the go
 
