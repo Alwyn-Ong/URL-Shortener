@@ -182,7 +182,7 @@ const Home = () => {
         direction="column"
         alignItems="center"
         justifyContent="center"
-        spacing={5}
+        spacing={2}
       >
         <Grid item>
           <Typography variant="h1" align="center">
