@@ -129,14 +129,15 @@ const Home = () => {
     );
   };
 
-  console.log(responseUrl);
+  // console.log(responseUrl);
+  // console.log(process.env.REACT_APP_SERVER_NAME);
 
   const [helperText, setHelperText] = React.useState("");
   const [isValid, setIsValid] = React.useState(true);
 
   const handleCopy = () => {
     var textField = document.createElement("textarea");
-    textField.innerText = `http://${process.env.REACT_APP_SERVER_NAME}:3000/${responseUrl}`;
+    textField.innerText = `${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -145,7 +146,7 @@ const Home = () => {
   };
 
   const handleRedirect = () => {
-    window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}:3000/${responseUrl}`;
+    window.location.href = `${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
   };
 
   // For custom input
@@ -239,7 +240,7 @@ const Home = () => {
         {isCustomUrl && (
           <Grid item style={{ width: "50%" }}>
             <Typography variant="h6" align="center">
-              {`http://${
+              {`${
                 process.env.REACT_APP_SERVER_NAME
               }/${customUrlToDisplay()}`}
             </Typography>
@@ -268,7 +269,7 @@ const Home = () => {
             <Paper style={{ padding: "0.5rem", paddingLeft: "0.6rem" }}>
               {/* Response{" "} */}
               {/* {responseUrl + " "} */}
-              {`http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl} `}
+              {`${process.env.REACT_APP_SERVER_NAME}/${responseUrl} `}
               {document.queryCommandSupported("copy") && (
                 <IconButton onClick={handleCopy}>
                   <FileCopyIcon />

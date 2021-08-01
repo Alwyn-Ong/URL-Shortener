@@ -133,7 +133,7 @@ export const Main = () => {
   };
 
   const handleRedirect = () => {
-    window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
+    window.location.href = `${process.env.REACT_APP_SERVER_NAME}/${responseUrl}`;
   };
 
   // For custom input

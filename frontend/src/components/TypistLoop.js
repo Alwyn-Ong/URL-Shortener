@@ -13,7 +13,7 @@ export default function TypistLoop(first, second) {
   }, [count]);
 
   let original = "https://developer.gov.sg/";
-  let shortened = `http://${process.env.REACT_APP_SERVER_NAME}/a1b2c3d4`
+  let shortened = `${process.env.REACT_APP_SERVER_NAME}/a1b2c3d4`
   // console.log(process.env.REACT_APP_SERVER_NAME);
 
   return (
