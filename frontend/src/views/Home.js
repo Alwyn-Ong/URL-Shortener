@@ -23,13 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+let protocolAndHost = window.location.protocol + "//" + window.location.hostname
+
 const Home = () => {
   const classes = useStyles();
 
   const [url, setUrl] = React.useState("");
   const handleChange = (event) => {
     setUrl(event.target.value);
-    console.log(url);
+    // console.log(url);
   };
 
   const [responseUrl, setResponseUrl] = React.useState("");
@@ -96,7 +98,7 @@ const Home = () => {
           redirect: "follow",
         };
 
-        fetch("http://localhost:8080/", requestOptions)
+        fetch(`${protocolAndHost}:8080/`, requestOptions)
           .then((response) => {
             if (response.ok) {
               return response.text();
@@ -129,14 +131,14 @@ const Home = () => {
     );
   };
 
-  console.log(responseUrl);
+  // console.log(responseUrl);
 
   const [helperText, setHelperText] = React.useState("");
   const [isValid, setIsValid] = React.useState(true);
 
   const handleCopy = () => {
     var textField = document.createElement("textarea");
-    textField.innerText = `http://${process.env.REACT_APP_SERVER_NAME}:3000/${responseUrl}`;
+    textField.innerText = `${protocolAndHost}:${window.location.port}/${responseUrl}`;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -145,7 +147,7 @@ const Home = () => {
   };
 
   const handleRedirect = () => {
-    window.location.href = `http://${process.env.REACT_APP_SERVER_NAME}:3000/${responseUrl}`;
+    window.location.href = `${protocolAndHost}:${window.location.port}/${responseUrl}`;
   };
 
   // For custom input
@@ -239,9 +241,7 @@ const Home = () => {
         {isCustomUrl && (
           <Grid item style={{ width: "50%" }}>
             <Typography variant="h6" align="center">
-              {`http://${
-                process.env.REACT_APP_SERVER_NAME
-              }/${customUrlToDisplay()}`}
+              {`${protocolAndHost}:${window.location.port}/${customUrlToDisplay()}`}
             </Typography>
 
             <TextField
@@ -268,7 +268,7 @@ const Home = () => {
             <Paper style={{ padding: "0.5rem", paddingLeft: "0.6rem" }}>
               {/* Response{" "} */}
               {/* {responseUrl + " "} */}
-              {`http://${process.env.REACT_APP_SERVER_NAME}/${responseUrl} `}
+              {`${protocolAndHost + ":" + window.location.port}/${responseUrl} `}
               {document.queryCommandSupported("copy") && (
                 <IconButton onClick={handleCopy}>
                   <FileCopyIcon />

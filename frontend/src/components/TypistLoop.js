@@ -13,8 +13,8 @@ export default function TypistLoop(first, second) {
   }, [count]);
 
   let original = "https://developer.gov.sg/";
-  let shortened = `http://${process.env.REACT_APP_SERVER_NAME}/a1b2c3d4`
-  // console.log(process.env.REACT_APP_SERVER_NAME);
+  let shortened = `${window.location.protocol + "//" + window.location.hostname}/a1b2c3d4`
+
 
   return (
     <div className="animated-text">
