@@ -21,7 +21,7 @@ const Main = ({ children }) => {
           display="flex"
           flex="1"
           justifyContent="space-around"
-          style={{ height: "100vh" }}
+          style={{ marginTop: 20 }}
         >
           {children}
         </Box>
