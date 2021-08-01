@@ -60,6 +60,11 @@ Change your database credentials accordingly in application.properties file.
 
 `/backend/src/main/resources/application.properties`
 
+For localhost, change 
+`-spring.datasource.url=jdbc:mysql://mysql...`
+to
+`-spring.datasource.url=jdbc:mysql://localhost...`
+
 ```shell script
 cd frontend 
 ```
