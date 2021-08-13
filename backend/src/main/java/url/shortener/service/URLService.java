@@ -41,6 +41,10 @@ public class URLService {
 		// Check if record already exists
 		URL urlFromDB = URLDao.findByOriginal(url.getOriginal());
 
+		// Check if the record isdisabled
+		// if its disabled
+		// reenable it
+
 		if (urlFromDB != null) {
 
 			// Return existing shortened url from db
@@ -83,6 +87,15 @@ public class URLService {
 		if (result.getOriginal() == null || result.getOriginal().length() == 0) {
 			throw new APIException("Error retrieving original URL.");
 		}
+
+		// For disabled links
+		if (result.getIsDisabled()) {
+			throw new APIException("Link is disabled.");
+		}
+
+		// For first time access
+		result.setIsDisabled(true);
+		URLDao.save(result);
 
 		return new ResponseEntity(result.getOriginal(), HttpStatus.OK);
 	}
