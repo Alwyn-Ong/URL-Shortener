@@ -29,13 +29,18 @@ public class URL {
 	@ApiModelProperty(notes = "original url")
 	private String original;
 
-	public URL() {
+	@Column(name = "isDisabled")
+	@ApiModelProperty(notes = "if url is disabled")
+	private boolean isDisabled = false;
 
-	}
-
-	public URL(String shortened, String original) {
+	public URL(String shortened, String original, boolean isDisabled) {
 		this.shortened = shortened;
 		this.original = original;
+		this.isDisabled = isDisabled;
+	}
+
+	public URL() {
+
 	}
 
 	public int getUrlId() {
@@ -65,6 +70,14 @@ public class URL {
 	@Override
 	public String toString() {
 		return "URL [urlId=" + urlId + ", shortened=" + shortened + ", original=" + original + "]";
+	}
+
+	public boolean getIsDisabled() {
+		return isDisabled;
+	}
+
+	public void setIsDisabled(boolean isDisabled) {
+		this.isDisabled = isDisabled;
 	}
 
 }
