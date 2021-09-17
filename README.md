@@ -1,7 +1,13 @@
 # URL-Shortener
 Web app to shorten url
 
-Check out a live demo [here!](http://13.250.25.22:3000/)
+Live demo temporary down for maintenance.
+
+## Demo for a short link with random characters
+![](demo.gif)
+
+## Demo for a short link with custom characters
+![](demo2.gif)
 
 ## Features:
 * Enter a url to get back a shortened version.
